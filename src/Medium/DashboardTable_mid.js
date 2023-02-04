@@ -1,38 +1,30 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-
-
-
-    const DashboardTableWaste = () => {
-    const [waste,setWaste] = useState([]);
+const DashboardTable_mid = () => {
+    const [uses, setUses] = useState([]);
     useEffect(()=>{
-        fetch('http://localhost:5000/waste')
+        fetch('http://localhost:5000/uses_med')
         .then(res=>res.json())
-        .then(data=>setWaste(data))
-
-
-
+        .then(data=>setUses(data))
     },[])
 
-    let sum_value_inner = waste.reduce((sum,current)=>{
-        return sum + parseInt(current.inner);
-    },0)
-    
-    let sum_value_outer = waste.reduce((sum,current)=>{
-        return sum + parseInt(current.outer) ;
-    },0)
-    
-    let sum_value_lemo = waste.reduce((sum,current)=>{
-        return sum + parseInt(current.lemo);
-    },0)
-    let sum_value_pouch = waste.reduce((sum,current)=>{
-        return sum + parseInt(current.pouch);
-    },0)
+let sum_value_inner = uses.reduce((sum,current)=>{
+    return sum + current.inner;
+},0)
 
+let sum_value_outer = uses.reduce((sum,current)=>{
+    return sum +current.outer ;
+},0)
 
+let sum_value_lemo = uses.reduce((sum,current)=>{
+    return sum + current.lemo;
+},0)
+let sum_value_pouch = uses.reduce((sum,current)=>{
+    return sum + current.pouch;
+},0)
     return (
         <div>
-        <h1 className='text-1xl shadow-2xl shadow-green-500 p-6 m-4'>DashBoard - Waste Certificate </h1>
+        <h1 className='text-1xl shadow-2xl shadow-yellow-500 p-6 m-4'>DashBoard - Uses Certificate (Medium) </h1>
                 <div class="overflow-x-auto p-6">
           <table class="table table-compact w-full">
             <thead>
@@ -50,17 +42,17 @@ import { useEffect, useState } from "react";
             </thead> 
             <tbody>
                 {
-                   waste.map(x=><WasteTable
+                    uses.map(x=><Table_row_two 
                         key={x._id}
                         size ={x.size}
-                        date = {x.date}
+                        date = {x.datee}
                         inner = {x.inner}
                         outer = {x.outer}
                         lemo = {x.lemo}
                         pouch = {x.pouch}
                         
                             
-                    ></WasteTable>)
+                    ></Table_row_two>)
                 }
                 
             </tbody> 
@@ -77,9 +69,10 @@ import { useEffect, useState } from "react";
               </tr>
             </tfoot>
           </table>
-
+          {/* totall */}
+         
           <div class="overflow-x-auto">
-          <h1 className='text-1xl shadow-2xl shadow-green-500 p-6 m-4 uppercase'>TOTALL wastage </h1>
+          <h1 className='text-1xl shadow-2xl shadow-yellow-500 p-6 m-4'>TOTALL USES-Medium </h1>
   <table class="table w-full p-6 my-6">
   
     <thead className='p-5 my-2'> 
@@ -104,30 +97,30 @@ import { useEffect, useState } from "react";
     </tbody>
   </table>
 </div>
+
+          
         </div>  
         </div>
     );
-
 };
 
-const WasteTable =({size,date,inner,outer,pouch,lemo})=>{
-
+const Table_row_two = ({size,date,inner,outer,lemo,pouch,total})=>{
+    let total_inner = 0;
+    total_inner = total_inner + inner;  
     return(
-        
-        <tr>
+         <tr>
          <th>{size}</th> 
          <td>{date}</td> 
          <td>{inner}</td> 
          <td>{outer}</td> 
          <td>{lemo}</td> 
          <td>{pouch}</td> 
-         
+         <td>{total}</td>
         
          </tr> 
-        
-    )
+    
+    
+       )
+     }
 
-
-}
-
-export default DashboardTableWaste;
+export default DashboardTable_mid;

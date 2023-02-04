@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 
 
 
-    const DashboardTableWaste = () => {
+    const DashboardTable_Waste = () => {
     const [waste,setWaste] = useState([]);
     useEffect(()=>{
-        fetch('http://localhost:5000/waste')
+        fetch('http://localhost:5000/waste_med')
         .then(res=>res.json())
         .then(data=>setWaste(data))
 
@@ -79,7 +79,7 @@ import { useEffect, useState } from "react";
           </table>
 
           <div class="overflow-x-auto">
-          <h1 className='text-1xl shadow-2xl shadow-green-500 p-6 m-4 uppercase'>TOTALL wastage </h1>
+          <h1 className='text-1xl shadow-2xl shadow-green-500 p-6 m-4 uppercase'>TOTALL wastage-Medium </h1>
   <table class="table w-full p-6 my-6">
   
     <thead className='p-5 my-2'> 
@@ -130,4 +130,4 @@ const WasteTable =({size,date,inner,outer,pouch,lemo})=>{
 
 }
 
-export default DashboardTableWaste;
+export default DashboardTable_Waste;

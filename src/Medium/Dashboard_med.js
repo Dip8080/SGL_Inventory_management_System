@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import DashboardTable from './DashboardTable';
-import DashboardTableWaste from './DashboardTableWaste';
+import DashboardTable_mid from './DashboardTable_mid';
+import DashboardTable_waste from './DashboardTable_waste';
 
-const DashBoard = () => {
+const Dashboard_med = () => {
     const [stock, setStock] = useState([]);
    
     useEffect(()=>{
-        fetch('http://localhost:5000/stock')
+        fetch('http://localhost:5000/stock_med')
     .then(res=>res.json())
     .then(data=>setStock(data))
     
@@ -27,10 +27,11 @@ const DashBoard = () => {
       return sum + parseInt(current.im_pouch);
   },0)
    
+  console.log( sum_value_inner, sum_value_lemo , sum_value_outer)
     return (
         <>
         <div>
-        <h1 className='text-1xl shadow-2xl shadow-red-500 p-6 m-4'>Dashboard- Certificate Stock ( SMALL) </h1>
+        <h1 className='text-1xl shadow-2xl shadow-red-500 p-6 m-4'>Dashboard- Certificate Stock(Medium) </h1>
         <div class="overflow-x-auto p-6">
   <table class="table table-compact w-full">
     <thead>
@@ -75,7 +76,7 @@ const DashBoard = () => {
   </table>
 
   <div class="overflow-x-auto">
-          <h1 className='text-1xl shadow-2xl shadow-red-500 p-6 m-4'>TOTALL STOCK-SMALL</h1>
+          <h1 className='text-1xl shadow-2xl shadow-red-500 p-6 m-4'>TOTALL STOCK - Medium </h1>
   <table class="table w-full p-6 my-6">
   
     <thead className='p-5 my-2'> 
@@ -102,7 +103,8 @@ const DashBoard = () => {
 </div>
 </div>
 </div>
-<DashboardTable></DashboardTable>
+<DashboardTable_mid></DashboardTable_mid>
+
 {/* uses data of regualr use */}
 {/* <div>
 <h1 className='text-1xl shadow-2xl shadow-red-900 p-6 m-4'>DashBoard - Uses Certificate </h1>
@@ -149,7 +151,8 @@ const DashBoard = () => {
   </table>
 </div>  
 </div> */}
-<DashboardTableWaste></DashboardTableWaste>
+<DashboardTable_waste></DashboardTable_waste>
+
 </>
     );
 };
@@ -196,4 +199,6 @@ return(
         <td>Blue</td>
       </tr> */}
 
-export default DashBoard;
+
+
+export default Dashboard_med;

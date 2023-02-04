@@ -25,7 +25,7 @@ let sum_value_pouch = uses.reduce((sum,current)=>{
 },0)
     return (
         <div>
-        <h1 className='text-1xl shadow-2xl shadow-yellow-500 p-6 m-4'>DashBoard - Uses Certificate </h1>
+        <h1 className='text-1xl shadow-2xl shadow-yellow-500 p-6 m-4'>DashBoard - Uses Certificate (SMALL) </h1>
                 <div class="overflow-x-auto p-6">
           <table class="table table-compact w-full">
             <thead>
@@ -73,7 +73,7 @@ let sum_value_pouch = uses.reduce((sum,current)=>{
           {/* totall */}
          
           <div class="overflow-x-auto">
-          <h1 className='text-1xl shadow-2xl shadow-yellow-500 p-6 m-4'>TOTALL USES </h1>
+          <h1 className='text-1xl shadow-2xl shadow-yellow-500 p-6 m-4'>TOTALL USES-SMALL </h1>
   <table class="table w-full p-6 my-6">
   
     <thead className='p-5 my-2'> 

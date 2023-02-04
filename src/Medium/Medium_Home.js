@@ -1,163 +1,88 @@
-import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Waste from '../Waste';
+import { toast, ToastContainer } from 'react-toastify';
+import Medium_Waste from './Medium_Waste';
 
+const Medium_Home = () => {
+    // Medium inventory stock update
+const [id, setId] = useState('');
+const [date, setDate] = useState('');
+const [imprt, setImport] = useState('');
+const [im_inner,setImInner]=useState(0);
+const [im_outer, setImOuter] = useState(0);
+const [im_lemo,setImLemo] = useState(0);
+const [im_pouch,setImPouch] = useState(0);
 
-
-const Home = () => {
-  const navigate = useNavigate();
+// MEDIUM   uses 
+const navigate = useNavigate();
   const [size, setSize] = useState('');
   const [datee , setDatee] = useState('');
   const [inner, setInner] = useState(0);
   const [outer, setOuter] = useState(0);
   const [lemo, setLemo] = useState(0);
   const [pouch, setPouch] = useState(0);
-  // ......................................>
-  // hudai
-  const [hudai, setHudai] = useState("certificate");
-  //................................>
-  // toast
-  // const handleToast = () => {
-  //   toast("data has been updated to the server")
 
-  // }
-  // -------------------------------------->
-  // summery
-  const [outer_stock, setOuterStock] = useState('2000');
-  const [inner_stock, setInnerStock] = useState('1500');
-  const   [lemo_stock, setLemoStock] = useState('3000');
-  const [pouch_stock, setPouchStock] = useState('1200')
-  // ----------------------->
-  const [option ,setOption] = useState('');
+const HandleDashboard =()=>{
+    navigate('/medium/dashboardmid')
 
-  const mediumCertOption = () => {
-    navigate(`${option}`)
-    
-  }
-  const smallCertOption = () => {
-    toast("small cert is selected");
-    setHudai("Small Certificate");
-  }
+}
+const  HandleStockUpdate=()=>{
+    alert("are you sure ?");
+    const New_stock_med = {id,date,imprt,im_inner,im_outer,im_lemo,im_pouch};
+    console.log(id,date,imprt);
+    fetch("http://localhost:5000/stock_med",{
 
-  // handle Uses  submit
-  const HandleUseSubmit = () => {
-    
-    alert('are you sure ?')
-   
-    const updated_outer_stock = parseInt(outer_stock)+parseInt(outer);
-    const updated_inner_stock = parseInt(inner_stock)+parseInt(inner);
-    const updated_lemo_stock = parseInt(lemo_stock)+parseInt(lemo);
-    const updated_pouch_stock = parseInt(pouch_stock)+parseInt(pouch);
+        method : "POST",
+        headers : {
+          'content-type' : 'application/json'
+        },
+        body : JSON.stringify(New_stock_med)
 
-    setOuterStock(updated_outer_stock);
-    setInnerStock(updated_inner_stock);
-    setLemoStock(updated_lemo_stock);
-    setPouchStock(updated_pouch_stock);
-    
-    const stock = {updated_pouch_stock,updated_inner_stock,updated_lemo_stock,updated_outer_stock};
-
-    const uses = {datee,size,inner,outer,pouch,lemo};
-
-    fetch("http://localhost:5000/uses",{
-    method : "POST",
-    headers : {
-      'content-type' : 'application/json'
-
-    },
-    body : JSON.stringify(uses)
 
     })
-    .then(res=> res.json())
-    .then(date=>console.log(date))
+    .then(res=>res.json)
+    .then(data=>console.log(data))
     .catch(err=>console.log(err))
-    toast('Regular inventory uses are updated into Database');
-
-    // end of uses inventory
-
-    //     fetch("http://localhost:5000/stock",{
-//       method : "POST",
-//       headers : {
-//         'content-type' : 'application/json'
-//       },
-//       body : JSON.stringify(stock)
-//       })
-//       .then(res=>res.json())
-//       .then(data=>console.log(data))
-//       .catch(err=>console.log(err))
-//       toast("inventory data is sent to server");
-//  }
-  // ----------------------------
+    toast('MEDIUM inventory details is updated to the Database')
   }
 
-// inventory stock update
-const [id, setId] = useState('');
-const [date, setDate] = useState('');
-const [imprt, setImport] = useState('');
-const [im_inner,setImInner]=useState('');
-const [im_outer, setImOuter] = useState('');
-const [im_lemo,setImLemo] = useState('');
-const [im_pouch,setImPouch] = useState('');
+  // uses update to database
+const HandleUses =()=>{
+alert("are you sure ?")
+const uses = {size,datee,inner,outer,lemo,pouch}
+fetch("http://localhost:5000/uses_med",{
 
-const HandleStockUpdate = ()=>{
- alert('Are you sure ?')   
- const New_stock = {id,date,imprt,im_inner,im_outer,im_lemo,im_pouch}; 
- fetch("http://localhost:5000/stock",{
-  method : "POST",
-  headers : {
-    'content-type' : 'application/json'
-  },
-  body : JSON.stringify(New_stock)
- })
- .then(res=>res.json())
- .then(data=>console.log(data))
- .catch(err=>console.log(err))
- toast("SMALL Inventory details is updated to the Database")
- 
+method : "POST",
+headers : {
+  'content-type' : 'application/json'
 
+},
+body : JSON.stringify(uses)
+
+})
+.then(res=>res.json())
+.then(data=>console.log(data))
+.catch(err=>console.log(err))
+toast("MEDIUM uses is updated to Database")
 }
 
-const HandleDashboard = () =>{
-  navigate("/dashboard")
-}
-
-const HandleSelectChange =(e)=>{
-  
-}
-
-
-
-return (
-        <div className="App">
-      <>      <h1 className='uppercase font-bold text-3xl my-3'>Inventory management system-sgl (Small) </h1>
+    return (
+       <div className="App">
+      <>      <h1 className='uppercase font-bold text-3xl my-3'>Inventory management system-sgl (medium)</h1>
         <button className='btn rounded' onClick={HandleDashboard}>Dashboard</button>
       <h2 className='text-1xl my-2'> Enter inventory uses of</h2> 
-   
-
-      {/* <select class="select select-bordered"  onChange={e=>setOption(e.currentTarget.value)}>
-        <option disabled selected >Cerficate</option>
-        <option value={'/medium'} > Medium Cerficate</option>
-        <option value={'/'}> Small Cerficate</option>
-        
-      </select>
-      <button onClick={mediumCertOption} className="btn rounded w-32 bg-yellow-600">medium</button> */}
-
-<div class="dropdown shadow-lg p-1 shadow-green-400 rounded">
+      <div class="dropdown shadow-lg p-1 shadow-green-400 rounded">
    <label tabindex="0" class="btn m-1 shadow-sm shadow-green-600">Certificate</label>
   <ul tabindex="0" class=" dropdown-content menu p-2 bg-base-100 rounded-box w-52 border-emerald-400 shadow-lg shadow-green-400">
-    <Link to={'/'}> <li><a className='selected'>Small Certificate</a></li> </Link>
+    <Link to={'/'}> <li><a>Small Certificate</a></li> </Link>
     <Link to={'/medium'}> <li><a>Medium Cerficate</a></li> </Link>
    </ul>
  </div>
- 
-
-
+      
 
       {/* Stock update */}
       <div className='p-6'>
-        <h1 className='uppercase text-2xl text-center my-2'>update inventory  stock </h1>
+        <h1 className='uppercase text-2xl text-center my-2'>update inventory  stock</h1>
         <div>
           <input onChange={e=>{setId(e.target.value)}} type="text" placeholder="Id" className='input input-bordered'></input>
           <input onChange={e=>{setDate(e.target.value)}} type="text" placeholder="Date" className='input input-bordered'></input>
@@ -169,7 +94,7 @@ return (
           <input onChange={e=>parseInt(setImOuter(e.target.value))} type="number" placeholder='Outer' className='input input-bordered'></input>
           <input onChange={e=>parseInt(setImLemo(e.target.value))} type="number" placeholder='Lemo' className='input input-bordered'></input>
           <input onChange={e=>parseInt(setImPouch(e.target.value))} type="number" placeholder='Pouch' className='input input-bordered'></input>
-          <button onClick={HandleStockUpdate} className='btn rounded px-32 my-4 bg-purple-700 sub_btn mx-6 block'>Submit</button>
+          <button onClick={HandleStockUpdate} className='btn rounded px-32 my-4 bg-pink-700 sub_btn mx-6 block'>Submit</button>
         </div>
       </div>
       {/* stock update */}
@@ -183,15 +108,15 @@ return (
             <p className='w-32 my-3 border p-2 font-bold rounded'>Pouch : {pouch_stock}</p>
           </div>
          */}
-        <div className='p-1 shadow-2xl shadow-red-700'>
-        <Waste></Waste>
+        <div className='p-1 shadow-2xl shadow-green-700'>
+        <Medium_Waste></Medium_Waste>
         </div>
          
     
         <div>
 
-          <div className='col-span-3 P-5  shadow-2xl shadow-red-700'>
-          <h1 className='text-1xl uppercase p-2 shadow shadow-red-500'>Regular Uses-Small</h1>
+          <div className='col-span-3 P-5  shadow-2xl shadow-green-700'>
+          <h1 className='text-1xl uppercase p-2 shadow shadow-green-500'>Regular Uses</h1>
           <div class="form-control input_div">
             
               <label class="input-group">
@@ -238,7 +163,7 @@ return (
                 <span>Pouch</span>
               </label>
             </div>
-            <div className='shadow shadow-red-800 '> <button className='btn rounded px-32 my-4 bg-green-700 ' onClick={HandleUseSubmit}>Submit </button></div>
+            <div className='shadow shadow-red-800 '> <button onClick={HandleUses} className='btn rounded px-32 my-4 bg-pink-700 ' >Submit </button></div>
             <ToastContainer></ToastContainer>
          
           </div>
@@ -251,4 +176,4 @@ return (
     );
 };
 
-export default Home;
+export default Medium_Home;

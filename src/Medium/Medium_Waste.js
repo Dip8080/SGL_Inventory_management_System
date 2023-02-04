@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { json } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
-const Waste = () => {
+const Medium_Waste = () => {
     const [size, setSize ]= useState('');
     const [date, setDate ]= useState('');
     const [inner, setInner ]= useState(0);
@@ -16,7 +16,7 @@ const Waste = () => {
     const HandleWasteSubmit = ()=>{
     alert("are you sure ?")
     const waste = {size,date,inner,outer,lemo,pouch};
-    fetch('http://localhost:5000/waste',{
+    fetch('http://localhost:5000/waste_med',{
         method : 'POST',
         headers : {
             'content-type' : 'application/json'
@@ -33,7 +33,7 @@ const Waste = () => {
 }
     return (
         <>
-        <h1 className='text-1xl uppercase p-2 shadow shadow-red-500'>Regular wastage-Small</h1>
+        <h1 className='text-1xl uppercase p-2 shadow shadow-green-500'>Regular wastage-Medium</h1>
         <div class="form-control input_div">
           
             <label class="input-group">
@@ -80,11 +80,11 @@ const Waste = () => {
               <span>Pouch</span>
             </label>
           </div>
-          <div className='shadow shadow-red-800 '> <button className='btn rounded px-32 my-4 bg-green-700 ' onClick={HandleWasteSubmit}>Submit </button></div>
+          <div className='shadow shadow-red-800 '> <button className='btn rounded px-32 my-4 bg-pink-700 ' onClick={HandleWasteSubmit}>Submit </button></div>
           <ToastContainer></ToastContainer>
        
           </>
     );
 };
 
-export default Waste;
+export default Medium_Waste;
